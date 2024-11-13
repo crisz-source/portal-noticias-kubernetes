@@ -34,24 +34,21 @@ minikube status
 
 ```Bash 
 # frontend
-
-kubectl apply -f ./estudos-kubernetes-main/project-portal-noticias/project-portal-noticias-frontend/portal-noticias.yml
-kubectl apply -f ./estudos-kubernetes-main/project-portal-noticias/project-portal-noticias-frontend/portal-configmap.yml
-
-#opcional
-kubectl apply -f ./estudos-kubernetes-main/project-portal-noticias/project-portal-noticias-frontend/portal-noticias-replicasets.yml
+kubectl apply -f ./portal-noticias/project-portal-noticias/project-portal-noticias-frontend/portal-noticias.yml # -- aplique apenas se nao for utilizar o replicaset
+kubectl apply -f ./portal-noticias/project-portal-noticias/project-portal-noticias-frontend/portal-configmap.yml
+kubectl apply -f ./portal-noticias/project-portal-noticias/project-portal-noticias-frontend/svc-portal-noticias.yml
 
 
 # backend
-kubectl apply -f ./estudos-kubernetes-main/project-portal-noticias/project-sistema-noticias-backend/sistema-configmap.yml
-kubectl apply -f ./estudos-kubernetes-main/project-portal-noticias/project-sistema-noticias-backend/sistema-noticias.yml
-kubectl apply -f ./estudos-kubernetes-main/project-portal-noticias/project-sistema-noticias-backend/svc-sistema-noticias.yml
+kubectl apply -f ./portal-noticias/project-portal-noticias/project-sistema-noticias-backend/sistema-noticias.yml
+kubectl apply -f ./portal-noticias/project-portal-noticias/project-sistema-noticias-backend/sistema-configmap.yml
+kubectl apply -f ./portal-noticias/project-portal-noticias/project-sistema-noticias-backend/svc-sistema-noticias.yml
 
 
 # Database 
-kubectl apply -f ./estudos-kubernetes-main/project-portal-noticias/project-portal-db/db-configmap.yml 
-kubectl apply -f ./estudos-kubernetes-main/project-portal-noticias/project-portal-db/db-noticias.yml
-kubectl apply -f ./estudos-kubernetes-main/project-portal-noticias/project-portal-db/svc-db-noticias.yml
+kubectl apply -f ./portal-noticias/project-portal-noticias/project-portal-db/db-configmap.yml 
+kubectl apply -f ./portal-noticias/project-portal-noticias/project-portal-db/db-noticias.yml
+kubectl apply -f ./portal-noticias/project-portal-noticias/project-portal-db/svc-db-noticias.yml
 
 # entre na aplicação:
 # usuário: admin
@@ -66,34 +63,48 @@ NAME       STATUS   ROLES           AGE   VERSION   INTERNAL-IP    EXTERNAL-IP  
 minikube   Ready    control-plane   16m   v1.31.0   192.168.49.2   <none>        Ubuntu 22.04.4 LTS   5.15.153.1-microsoft-standard-WSL2   docker://27.2.0
 
 
+# Pegue o indereço ip: INTERNAL-IP e cole no navegador
+internal-ip-minikube:30000 
+internal-ip-minikube:30001
+
 # caso não consiga entrar nessa porta, utilize o comando abaixo para que o minikube expõe uma URL e faz o um direcionamento da porta 30000 para uma aleatória
 minikube service svc-portal-noticias
+```
+# Escalabilidade    
+#### O uso do escabilidade seria mais para garantir o funcionamento da aplicação, onde, quando um pod for deletado ele não é iniciado novamente e o replicaset muda este cenário, que em casos de falhas no pod o replicaset entra em ação e assim que um pod é terminado, automaticamente o replicaset inicia um outro pod. O deployment também faz parte da escalabilidade, um deployment é a mesma coisa de um replicaset, porém com uma camada acima... quando cria um deployment automaticamente esta definindo um replicaset
 
-
-# Pegue o indereço ip: INTERNAL-IP e cole no navegador
-192.168.49.2:30000 
-192.168.49.2:30001
-
+```bash
+# caso queira testar o comando abaixo, delete o pod normal do portal-noticias e aplique o comando abaixo
+kubectl apply -f ./portal-noticias/project-portal-noticias/project-portal-noticias-frontend/portal-noticias-replicasets.yml
 ```
 
-####
-#
-#
-#
-#
+# Deployment
+#### Na parte de deploy, separaei o deployment de cada parde. Só vai ser necessário que configure o configmap e svc primeiramente.
 
+```bash
+# Deploy do frontend
+kubectl apply -f ./portal-noticias/deploy/portal-noticias-deploy.yml
+kubectl apply -f ./portal-noticias/project-portal-noticias/project-portal-noticias-frontend/portal-configmap.yml
+kubectl apply -f ./portal-noticias/project-portal-noticias/project-portal-noticias-frontend/svc-portal-noticias.yml
 
- # -- test Deploy --- em contrução
+# Deploy do backend
+kubectl apply -f ./portal-noticias/deploy/sistema-noticias-deploy.yml
+kubectl apply -f ./portal-noticias/project-portal-noticias/project-sistema-noticias-backend/sistema-configmap.yml
+kubectl apply -f ./portal-noticias/project-portal-noticias/project-sistema-noticias-backend/svc-sistema-noticias.yml
 
-## Entre no diretório deploy e aplique o manifesto de deploy com todas as configurações necessárias:
+# Deploy do banco
+kubectl apply -f ./portal-noticias/deploy/db-noticias-deploy.yml
+kubectl apply -f ./portal-noticias/project-portal-noticias/project-portal-db/db-configmap.yml 
+kubectl apply -f ./portal-noticias/project-portal-noticias/project-portal-db/svc-db-noticias.yml
 
-```Bash
-xxxxxx
+# Volumes...(em construção)
 
-
+# Pegue o indereço ip: INTERNAL-IP do minikube com o comando [ kubectl get nodes -o wide ] e cole no navegador
+internal-ip-minikube:30000 
+internal-ip-minikube:30001
 ```
 
-#### x - Verifique se foi criado tudo corretamente  -- test
+#### Verifique se foi criado tudo corretamente  -- test
 ```Bash
 kubectl get pods
 kubectl get svc
@@ -101,15 +112,25 @@ kubectl get configmaps
 kubectl get pvc
 kubectl get pv
 kubectl get sc
-
 ```
+# Volumes
+####
 
-# Volumes, entre no diretório de persistentVOlumeClaim e aplica os volumes -- test
-```Bash
-kubectl apply -f ./estudos-kubernetes-main/project-portal-noticias/volumes/persistentVolumeClaim/pod-sc.yml
-kubectl apply -f ./estudos-kubernetes-main/project-portal-noticias/volumes/persistentVolumeClaim/pvc-sc.yml
-```
 
-## Entre no seu navegador com ip_interno_node:30000  -- test
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
