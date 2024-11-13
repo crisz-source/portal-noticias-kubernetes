@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata: #metadata do replicaset
+  name: portal-noticias-replicaset
+spec: #especificacoes do replicaset
+  template: #conteudo-modelo do replicaset
+    metadata: #metadata do pod
+      name: portal-noticias
+      labels: 
+        app: portal-noticias
+    spec: #especifiacoes do pod
+      containers:
+        - name: portal-noticias-container
+          image: aluracursos/portal-noticias:1
+          ports:
+            - containerPort: 80
+          envFrom: 
+            - configMapRef:
+                name: portal-configmap
+                
+  replicas: 3 #definindo 3 replicas, se 1 der ruim, temos mais duas replicas para backup
+  selector:  #gerenciando o replicaset apartir da labels
+    matchLabels:  # O ReplicaSet irá gerenciar apenas os Pods que possuem as labels especificadas
+      app: portal-noticias
+
+

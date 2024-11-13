@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-db-noticias
+spec:
+  type: ClusterIP #criei um clusterIP para que não seja acessado externamente, apenas dentro do cluster
+  ports:
+    - port: 3306 # a porta deste serviço será entrada(porta do container) e saída (porta do serviço no cluster)
+  selector:
+    app: db-noticias

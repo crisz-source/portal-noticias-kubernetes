@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-pod-1
+spec:
+  type: NodePort
+  ports:
+    - port: 8080 #serviço rodando nessa porta dentro do cluster
+      targetPort: 80 #porta do cointaier nginx que está rodando
+      nodePort: 30000 #porta do node que será acessada externamente
+  selector:
+    app: primeiro-pod
