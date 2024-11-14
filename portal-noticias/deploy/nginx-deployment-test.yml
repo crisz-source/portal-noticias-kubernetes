@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: nginx-deployment
 spec: #especificações do pod
-  replicas: 6
+  replicas: 3
   template: 
     metadata:
       name: nginx-pod
@@ -12,7 +12,7 @@ spec: #especificações do pod
     spec: #especificações do container
       containers:
         - name: nginx-container
-          image: nginx:latest
+          image: nginx:latest 
           ports:
             - containerPort: 80
   

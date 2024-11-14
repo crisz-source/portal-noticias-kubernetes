@@ -2,7 +2,7 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
     name: slow
-provisioner: kubernetes.io/gce-pd #google cloud platform
+provisioner: kubernetes.io/gce-pd #google cloud platform, o arquivo pvc-sc.yml esta utiliznado este StorageClass 
 parameters:
     type: pd-standard
     fstype: ext4

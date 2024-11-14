@@ -28,7 +28,7 @@ minikube status
 ```
 
 
-# Aplicando os pods da aplicação separadamente, services e configmaps
+# Aplicando os pods da aplicação separadamente, services e configmaps sem volumes
 
 #### 1 - Entre no diretório portal-notificias-main e execute:
 
@@ -78,32 +78,6 @@ minikube service svc-portal-noticias
 kubectl apply -f ./portal-noticias/project-portal-noticias/project-portal-noticias-frontend/portal-noticias-replicasets.yml
 ```
 
-# Deployment
-#### Na parte de deploy, separaei o deployment de cada parde. Só vai ser necessário que configure o configmap e svc primeiramente.
-
-```bash
-# Deploy do frontend
-kubectl apply -f ./portal-noticias/deploy/portal-noticias-deploy.yml
-kubectl apply -f ./portal-noticias/project-portal-noticias/project-portal-noticias-frontend/portal-configmap.yml
-kubectl apply -f ./portal-noticias/project-portal-noticias/project-portal-noticias-frontend/svc-portal-noticias.yml
-
-# Deploy do backend
-kubectl apply -f ./portal-noticias/deploy/sistema-noticias-deploy.yml
-kubectl apply -f ./portal-noticias/project-portal-noticias/project-sistema-noticias-backend/sistema-configmap.yml
-kubectl apply -f ./portal-noticias/project-portal-noticias/project-sistema-noticias-backend/svc-sistema-noticias.yml
-
-# Deploy do banco
-kubectl apply -f ./portal-noticias/deploy/db-noticias-deploy.yml
-kubectl apply -f ./portal-noticias/project-portal-noticias/project-portal-db/db-configmap.yml 
-kubectl apply -f ./portal-noticias/project-portal-noticias/project-portal-db/svc-db-noticias.yml
-
-# Volumes...(em construção)
-
-# Pegue o indereço ip: INTERNAL-IP do minikube com o comando [ kubectl get nodes -o wide ] e cole no navegador
-internal-ip-minikube:30000 
-internal-ip-minikube:30001
-```
-
 #### Verifique se foi criado tudo corretamente  -- test
 ```Bash
 kubectl get pods
@@ -113,8 +87,6 @@ kubectl get pvc
 kubectl get pv
 kubectl get sc
 ```
-# Volumes
-####
 
 
 

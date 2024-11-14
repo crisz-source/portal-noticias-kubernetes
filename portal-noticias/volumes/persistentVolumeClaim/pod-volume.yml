@@ -7,7 +7,7 @@ spec:
     - name: nginx-container
       image: nginx:latest
       volumeMounts:
-        - mountPath: /volume-dentro-do-container
+        - mountPath: /volume-dentro-do-container # esse volume, como estou utilizando o minikube, terá que criar um volume com este nome dentor do minikube com o comando: minikube ssh, crie na raiz do minikube
           name: primeiro-pv 
   volumes:
     - name: primeiro-pv

@@ -1,4 +1,4 @@
-# pod que esta usando um pvc padrão da google cloud
+# pod que esta usando um pvc-2 e esse pvc-2 possui um storage class
 apiVersion: v1
 kind: Pod
 metadata:
@@ -13,5 +13,5 @@ spec:
   volumes:
     - name: primeiro-pv
       persistentVolumeClaim:
-        claimName: pvc-1
+        claimName: pvc-2
 

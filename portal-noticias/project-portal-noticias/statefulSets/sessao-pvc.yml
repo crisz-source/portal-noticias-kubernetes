@@ -1,7 +1,7 @@
 apiVersion: v1
 kind:   PersistentVolumeClaim
 metadata:
-  name: sessao-pvc
+  name: sessao-pvc # este pvc tem o intuito de armazenar a sessão da aplicação, garantindo que não precise ficar logando toda vez que entrar na aplicação
 spec:
   accessModes:
     - ReadWriteOnce

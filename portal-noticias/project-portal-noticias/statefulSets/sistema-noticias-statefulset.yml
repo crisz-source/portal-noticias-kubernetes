@@ -19,18 +19,20 @@ spec:
             - configMapRef:
                 name: sistema-configmap
           volumeMounts: #volume que vai montar dentro de um container
-            - name: imagens
-              mountPath: /var/www/html/uploads #caminho da imagem que será armazenadas
+            - name: imagens # nome do volume que será utilizado
+              mountPath: /var/www/html/uploads #caminho das imagebs que será armazenadas, a pasta upload esta dentro do pod (kubectl exec -it sistema-noticias-statefulset-0 -- bash)
             - name: sessao
-              mountPath: /tmp #caminho da sessao que será armazenadas
+              mountPath: /tmp #caminho da sessao que será armazenadas, armazenadas em um diretório temporário
+
       volumes: #esses volumes estão pegando localmente
-        - name: imagens
+        - name: imagens 
           persistentVolumeClaim:
-            claimName: imagens-pvc
+            claimName: imagens-pvc # pvc que é responsável de armazenar as imagens
+
         - name: sessao
           persistentVolumeClaim:
-            claimName: sessao-pvc
+            claimName: sessao-pvc # pvc que é responsável de armazenar a sessão
   selector:
     matchLabels:
       app: sistema-noticias
-  serviceName: svc-sistema-noticias
+  serviceName: svc-sistema-noticias # nome do serviço que vai gerenciar esse statefulsets

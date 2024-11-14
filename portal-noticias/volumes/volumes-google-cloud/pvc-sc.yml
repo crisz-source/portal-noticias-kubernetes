@@ -1,12 +1,13 @@
+# pvc-sc = pvc utilizando um storage class
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-1
+  name: pvc-2
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 10Gi
-  storageClassName: standard 
+  storageClassName: slow 
 
