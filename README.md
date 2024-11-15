@@ -24,7 +24,7 @@ O projeto está organizado em três pastas principais, cada uma com um propósit
 
 - [Docker](https://www.docker.com/)
 - [Kubernetes](https://kubernetes.io/)
-- [Kubernetes Dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/)
+- [Kubernetes Dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/) (em breve)
 - [Minikube](https://minikube.sigs.k8s.io/docs/)
 - [Grafana](https://grafana.com/) & [Prometheus](https://prometheus.io/) (em breve)
 
