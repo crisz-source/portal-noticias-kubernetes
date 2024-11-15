@@ -1,0 +1,1 @@
+## Este diretório de volumes, basicamente fiz ele para realizar testes e estudar na prática a criação de volumes, sendo eles pv e pvc. O uso desse estudo está no seguinte diretório: *portal-noticias/statefulSets*

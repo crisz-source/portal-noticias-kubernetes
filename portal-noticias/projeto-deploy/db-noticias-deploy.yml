@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-db-noticias
+spec:
+  type: ClusterIP #criei um clusterIP para que não seja acessado externamente, apenas dentro do cluster
+  ports:
+    - port: 3306 # a porta deste serviço será entrada(porta do container) e saída (porta do serviço no cluster)
+  selector:
+    app: db-noticias
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-configmap
+data: #configurando acesso ao banco
+  MYSQL_ROOT_PASSWORD: q1w2e3r4
+  MYSQL_DATABASE: empresa-teste
+  MYSQL_PASSWORD: q1w2e3r4
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: db-noticias-deploy
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: db-noticias
+      labels:
+        app: db-noticias
+    spec:
+      containers:
+        - name: db-noticias-container
+          image: aluracursos/mysql-db:1
+          ports:
+            - containerPort: 3306
+          envFrom:
+            - configMapRef:
+                name: db-configmap
+
+  selector:
+    matchLabels:
+      app: db-noticias

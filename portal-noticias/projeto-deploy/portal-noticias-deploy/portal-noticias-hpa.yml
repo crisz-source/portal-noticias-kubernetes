@@ -1,0 +1,22 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: portal-noticias-hpa
+spec:
+  scaleTargetRef: # Definição de qual deploy, statefulset ou replicaset será referenciada
+    apiVersion: apps/v1
+    kind: Deployment 
+    name: portal-noticias-deployment
+  # Definindo o minimo e máximos de replicas dos pods para o deployment
+  minReplicas: 1
+  maxReplicas: 10
+  metrics: # definindo quais recursos vai ser monitorado
+    - type: Resource # tipo de recursos do sistema, como processamento, mémorias e afins
+      resource:
+        name: cpu 
+        target: # definindo o que deseja da metrica de cpu
+          type: Utilization 
+          averageUtilization: 50 # baseado na utilização da cpu ele vai manter o uso médio de 50%
+
+      
+ 

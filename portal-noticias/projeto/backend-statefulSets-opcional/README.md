@@ -1,4 +1,5 @@
 # O StatefulSet é usado principalmente para aplicações que requerem identidade estável e armazenamento persistente. Ele é ideal para situações em que os pods precisam manter um identificador único e persistente, como o caso de bancos de dados ou sistemas que armazenam dados locais, como imagens ou sessões, que não podem ser simplesmente descartados e recriados com facilidade.
+Adiconei o nome `opcional` na pasta pois não é necessário utiliza-la para que a aplicação funcione corretamente, basta apenas ignorar. Caso queira, pode usar a vontade.
 
 ### Para que funcione corretamente, será necessário executar o seguinte comando:
 
@@ -19,9 +20,8 @@ kubectl apply -f ./portal-noticias/project-portal-noticias/statefulSets/sessao-p
 ```bash
 kubectl apply -f ./portal-noticias/project-portal-noticias/statefulSets/sistema-noticias-statefulset.yml
 ```
-#
 ### Abra no seu navegador na seguinte porta: localhost:30001 
-#
+
 ### Caso estiver usando o minikube, será necessário realizar o seguinte comando para pegar o ip do node: 
 
 ```bash
