@@ -50,7 +50,7 @@ minikube status
 
 # Aplicando os pods da aplicação separadamente, services e configmaps sem volumes
 
-#### 1 - Entre no diretório portal-noticias e execute:
+#### 1 - Entre no diretório portal-noticias-kubernetes e execute:
 
 ```Bash 
 # frontend
@@ -69,6 +69,9 @@ kubectl apply -f ./portal-noticias/projeto/backend/svc-sistema-noticias.yml
 kubectl apply -f ./portal-noticias/projeto/database-mysql/db-configmap.yml 
 kubectl apply -f ./portal-noticias/projeto/database-mysql/db-noticias.yml
 kubectl apply -f ./portal-noticias/projeto/database-mysql/svc-db-noticias.yml
+
+# HPA (escalabilidade)
+kubectl apply -f ./portal-noticias/projeto/frontend/portal-noticias-hpa.yml
 
 # entre na aplicação:
 # usuário: admin

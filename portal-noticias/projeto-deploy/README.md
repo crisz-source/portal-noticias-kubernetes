@@ -5,14 +5,14 @@
 
 ```bash
 # Deploy e HPA do frontend
-kubectl apply -f ./portal-noticias/deploy/portal-noticias-deploy/portal-noticias-deploy.yml
-kubectl apply -f ./portal-noticias/deploy/portal-noticias-deploy/portal-noticias-hpa.yml
+kubectl apply -f ./portal-noticias/projeto-deploy/portal-noticias-deploy/portal-noticias-deploy.yml
+kubectl apply -f ./portal-noticias/projeto-deploy/portal-noticias-deploy/portal-noticias-hpa.yml
 
 # Deploy do backend
-kubectl apply -f ./portal-noticias/deploy/sistema-noticias-deploy.yml
+kubectl apply -f ./portal-noticias/projeto-deploy/sistema-noticias-deploy.yml
 
 # Deploy do banco
-kubectl apply -f ./portal-noticias/deploy/db-noticias-deploy.yml
+kubectl apply -f ./portal-noticias/projeto-deploy/db-noticias-deploy.yml
 
 # Pegue o indereço ip: INTERNAL-IP do minikube com o comando [ kubectl get nodes -o wide ] e cole no navegador
 internal-ip-minikube:30000  # exibe as noticias cadastrada 
